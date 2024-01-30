@@ -15,8 +15,6 @@ router.post('/register', emailExistsMiddleware, async (req, res) => {
         login,
         password: hashedPassword
     });
-
-      res.header('Access-Control-Allow-Origin', '*');
   
       res.status(201).json(newUser);
     } catch (err) {

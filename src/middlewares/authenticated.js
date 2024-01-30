@@ -4,12 +4,12 @@ const User = require('../models/auth');
 const authenticated = async (req, res, next) => {
     try {
       const token = req.header('Authorization').replace('Bearer ', '');
-      const decoded = jwt.verify(token, 'seu-segredo-jwt');
+      const decoded = jwt.verify(token, process.env.SECRET_KEY_JWT);
   
       const user = await User.findById(decoded.userId);
   
       if (!user) {
-        throw new Error();
+        throw new Error('Não existe esse teco teco!');
       }
   
       req.user = user;

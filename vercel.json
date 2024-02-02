@@ -9,7 +9,11 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/src/index.js"
-        }
+            "dest": "/src/index.js",
+            "handle": "vercel",
+            "method": "GET,HEAD,PUT,PATCH,POST,DELETE",
+            "origin": "http://localhost:5173",
+            "credentials": true
+          }
     ]
 }

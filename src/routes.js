@@ -7,6 +7,11 @@ const jwt = require('jsonwebtoken');
 const authenticated = require('./middlewares/authenticated');
 
 
+router.get('/users/list', async (req, res) => {
+  const users = await User.find();
+
+  return res.status(200).json(users);
+})
 router.post('/register', emailExistsMiddleware, async (req, res) => {
     try {
       const { login, password } = req.body;
@@ -16,7 +21,7 @@ router.post('/register', emailExistsMiddleware, async (req, res) => {
         password: hashedPassword
     });
   
-      res.status(201).json(newUser);
+      return res.status(201).json(newUser);
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
@@ -59,7 +64,7 @@ router.post('/login', async (req, res) => {
 router.get('/profile', authenticated, async (req, res) => {
     const { login } = req.user;
     const user = await User.findOne({ login });
-    res.json(user);
+    return res.status(200).json(user);
 });
 
 module.exports = router;
